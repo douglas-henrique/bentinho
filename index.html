@@ -20,8 +20,8 @@
                 MILAGRES
             </div>
             <nav class="nav-menu">
-                <a id="nav-explore" class="active">Explorar</a>
-                <a id="nav-about">Sobre</a>
+                <button type="button" id="nav-explore" class="active" aria-current="page">Explorar</button>
+                <button type="button" id="nav-about">Sobre</button>
             </nav>
         </div>
     </header>
@@ -36,6 +36,7 @@
                         <div class="search-box">
                             <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                             <input type="text" class="search-input" id="searchCountryInput" placeholder="Pesquisar país...">
+                            <button type="button" class="search-clear-btn" id="clearCountrySearchButton" aria-label="Limpar busca">×</button>
                         </div>
                     </div>
                     <div class="country-grid" id="countryGrid"></div>

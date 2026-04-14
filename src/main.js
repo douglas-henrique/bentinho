@@ -1,9 +1,13 @@
+import './styles.css';
+import 'leaflet.markercluster';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+
 const BASE_URL = "https://www.miracolieucaristici.org/pr/Liste/";
 const DATA_FILE_PATH = "/data/miracles-data.json";
 
-import './styles.css';
-
 let countries = [];
+let activeCountryId = null;
 
 async function loadCountriesData() {
     const response = await fetch(DATA_FILE_PATH);
@@ -30,6 +34,7 @@ const selectors = {
     viewCountries: document.getElementById('view-countries'),
     viewCountryDetails: document.getElementById('view-country-details'),
     searchCountryInput: document.getElementById('searchCountryInput'),
+    clearCountrySearchButton: document.getElementById('clearCountrySearchButton'),
     searchMiracleInput: document.getElementById('searchMiracleInput'),
     miracleModal: document.getElementById('miracleModal'),
     modalTitle: document.getElementById('modalTitle'),
@@ -41,6 +46,11 @@ const selectors = {
 };
 
 const map = L.map('map', { zoomControl: false }).setView([20, 0], 3);
+const markersCluster = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    disableClusteringAtZoom: 7
+});
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' }).addTo(map);
 
@@ -53,12 +63,31 @@ function setActivePage(page) {
     if (page === 'explore') {
         selectors.pageExplore.style.display = 'flex';
         selectors.navExplore.classList.add('active');
+        selectors.navExplore.setAttribute('aria-current', 'page');
+        selectors.navAbout.removeAttribute('aria-current');
         setTimeout(() => map.invalidateSize(), 100);
         return;
     }
 
     selectors.pageAbout.style.display = 'block';
     selectors.navAbout.classList.add('active');
+    selectors.navAbout.setAttribute('aria-current', 'page');
+    selectors.navExplore.removeAttribute('aria-current');
+}
+
+function clearCountrySearch() {
+    selectors.searchCountryInput.value = '';
+    selectors.clearCountrySearchButton.classList.remove('visible');
+    document.querySelectorAll('.country-card').forEach((card) => {
+        card.style.display = 'flex';
+    });
+    selectors.searchCountryInput.focus();
+}
+
+function updateCountrySelectionState() {
+    document.querySelectorAll('.country-card').forEach((card) => {
+        card.classList.toggle('selected', Number(card.dataset.countryId) === activeCountryId);
+    });
 }
 
 function openMiracleModal(city, countryName) {
@@ -90,6 +119,8 @@ function closeModalOnBackdropClick(event) {
 }
 
 function openCountryDetails(country) {
+    activeCountryId = country.id;
+    updateCountrySelectionState();
     map.flyTo(country.coords, country.zoom, { duration: 1.5 });
     selectors.detailCountryTitle.innerHTML = `${country.flag} ${country.countryName}`;
     selectors.miracleList.innerHTML = '';
@@ -129,27 +160,57 @@ function renderCountries() {
         const card = document.createElement('div');
         card.className = 'country-card';
         card.dataset.name = country.countryName.toLowerCase();
+        card.dataset.countryId = country.id;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
         card.innerHTML = `<div class="country-flag">${country.flag}</div><div class="country-info"><span class="country-name">${country.countryName}</span><span class="miracle-count">${country.totalMiracles}</span></div>`;
         card.addEventListener('click', () => openCountryDetails(country));
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openCountryDetails(country);
+            }
+        });
         selectors.countryGrid.appendChild(card);
 
         country.cities.forEach((city) => {
-            const marker = L.marker([city.lat, city.lng]).addTo(map);
+            const marker = L.marker([city.lat, city.lng]);
             marker.on('click', () => openMiracleModal(city, country.countryName));
+            markersCluster.addLayer(marker);
         });
     });
+    map.addLayer(markersCluster);
 }
 
 function bindEvents() {
     selectors.navExplore.addEventListener('click', () => setActivePage('explore'));
     selectors.navAbout.addEventListener('click', () => setActivePage('about'));
+    selectors.navExplore.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setActivePage('explore');
+        }
+    });
+    selectors.navAbout.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setActivePage('about');
+        }
+    });
     selectors.backToCountriesButton.addEventListener('click', goBackToCountries);
     selectors.closeModalButton.addEventListener('click', closeMiracleModal);
     selectors.miracleModal.addEventListener('click', closeModalOnBackdropClick);
     selectors.miracleIframe.addEventListener('load', hideIframeSpinner);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && selectors.miracleModal.classList.contains('active')) {
+            closeMiracleModal();
+        }
+    });
+    selectors.clearCountrySearchButton.addEventListener('click', clearCountrySearch);
 
     selectors.searchCountryInput.addEventListener('input', (event) => {
         const term = event.target.value.toLowerCase();
+        selectors.clearCountrySearchButton.classList.toggle('visible', term.length > 0);
         document.querySelectorAll('.country-card').forEach((card) => {
             card.style.display = card.dataset.name.includes(term) ? 'flex' : 'none';
         });
