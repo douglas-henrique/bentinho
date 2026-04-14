@@ -1,0 +1,1206 @@
+[
+  {
+    "id": 1,
+    "countryName": "Italy",
+    "flag": "🇮🇹",
+    "coords": [
+      41.8719,
+      12.5674
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Alatri",
+        "year": "1228",
+        "lat": 41.726,
+        "lng": 13.344,
+        "url": "scheda.html?nat=italia&wh=alatri&ct=Alatri, 1228"
+      },
+      {
+        "name": "Santa Clara de Assis",
+        "year": "1240",
+        "lat": 43.075,
+        "lng": 12.617,
+        "url": "scheda.html?nat=italia&wh=santachiaradassisi&ct=Santa Clara de Assis, 1240"
+      },
+      {
+        "name": "Asti",
+        "year": "1535",
+        "lat": 44.899,
+        "lng": 8.204,
+        "url": "scheda_b.html?nat=italia&wh=asti&ct=Asti, 1535"
+      },
+      {
+        "name": "Bagno di Romagna",
+        "year": "1412",
+        "lat": 43.832,
+        "lng": 11.961,
+        "url": "scheda.html?nat=italia&wh=bagnodiromagna&ct=Bagno di Romagna, 1412"
+      },
+      {
+        "name": "Bolsena",
+        "year": "1264",
+        "lat": 42.644,
+        "lng": 11.986,
+        "url": "scheda_b.html?nat=italia&wh=bolsena&ct=Bolsena, 1264"
+      },
+      {
+        "name": "Canosio",
+        "year": "1630",
+        "lat": 44.455,
+        "lng": 7.085,
+        "url": "scheda.html?nat=italia&wh=canosio&ct=Canosio, 1630"
+      },
+      {
+        "name": "Cascia",
+        "year": "1330",
+        "lat": 42.718,
+        "lng": 13.013,
+        "url": "scheda.html?nat=italia&wh=cascia&ct=Cascia, 1330"
+      },
+      {
+        "name": "Cava dei Tirreni",
+        "year": "1656",
+        "lat": 40.7,
+        "lng": 14.707,
+        "url": "scheda.html?nat=italia&wh=cavadeitirreni&ct=Cava dei Tirreni, 1656"
+      },
+      {
+        "name": "Dronero",
+        "year": "1631",
+        "lat": 44.466,
+        "lng": 7.36,
+        "url": "scheda.html?nat=italia&wh=dronero&ct=Dronero, 1631"
+      },
+      {
+        "name": "São Mauro La Bruca",
+        "year": "1969",
+        "lat": 40.119,
+        "lng": 15.286,
+        "url": "scheda.html?nat=italia&wh=dronero&ct=São Mauro La Bruca, 1969"
+      },
+      {
+        "name": "Ferrara",
+        "year": "1171",
+        "lat": 44.838,
+        "lng": 11.619,
+        "url": "scheda.html?nat=italia&wh=ferrara&ct=Ferrara, 1171"
+      },
+      {
+        "name": "Florença",
+        "year": "1230-1595",
+        "lat": 43.769,
+        "lng": 11.255,
+        "url": "scheda_b.html?nat=italia&wh=firenze&ct=Florença, 1230-1595"
+      },
+      {
+        "name": "Gruaro (Valvasone)",
+        "year": "1294",
+        "lat": 45.83,
+        "lng": 12.87,
+        "url": "scheda.html?nat=italia&wh=gruaro&ct=Gruaro (Valvasone), 1294"
+      },
+      {
+        "name": "Lanciano",
+        "year": "750 D.C.",
+        "lat": 42.231,
+        "lng": 14.39,
+        "url": "scheda_b.html?nat=italia&wh=lanciano&ct=Lanciano, 750 D.C."
+      },
+      {
+        "name": "Macerata",
+        "year": "1356",
+        "lat": 43.3,
+        "lng": 13.453,
+        "url": "scheda.html?nat=italia&wh=macerata&ct=Macerata, 1356"
+      },
+      {
+        "name": "Mogoro",
+        "year": "1604",
+        "lat": 39.682,
+        "lng": 8.775,
+        "url": "scheda.html?nat=italia&wh=mogoro&ct=Mogoro, 1604"
+      },
+      {
+        "name": "Morrovalle",
+        "year": "1560",
+        "lat": 43.314,
+        "lng": 13.633,
+        "url": "scheda.html?nat=italia&wh=morrovalle&ct=Morrovalle, 1560"
+      },
+      {
+        "name": "Offida",
+        "year": "1273-1280",
+        "lat": 42.934,
+        "lng": 13.698,
+        "url": "scheda.html?nat=italia&wh=offida&ct=Offida, 1273-1280"
+      },
+      {
+        "name": "Patierno (Nápoles)",
+        "year": "1772",
+        "lat": 40.875,
+        "lng": 14.288,
+        "url": "scheda.html?nat=italia&wh=patierno&ct=Patierno (Nàpoles), 1772"
+      },
+      {
+        "name": "Rimini",
+        "year": "1227",
+        "lat": 44.059,
+        "lng": 12.568,
+        "url": "scheda.html?nat=italia&wh=rimini&ct=Rimini, 1227"
+      },
+      {
+        "name": "Roma",
+        "year": "VI-VII sec.",
+        "lat": 41.902,
+        "lng": 12.496,
+        "url": "scheda_b.html?nat=italia&wh=romaa&ct=Roma, VI-VII sec."
+      },
+      {
+        "name": "Roma",
+        "year": "1610",
+        "lat": 41.89,
+        "lng": 12.5,
+        "url": "scheda.html?nat=italia&wh=romab&ct=Roma, 1610"
+      },
+      {
+        "name": "Rosano",
+        "year": "1948",
+        "lat": 43.766,
+        "lng": 11.433,
+        "url": "scheda.html?nat=italia&wh=rosano&ct=Rosano, 1948"
+      },
+      {
+        "name": "São Pedro Damião",
+        "year": "XI sec.",
+        "lat": 44.383,
+        "lng": 11.916,
+        "url": "scheda.html?nat=italia&wh=sanpierdamiani&ct=São Pedro Damião, XI sec."
+      },
+      {
+        "name": "Salzano",
+        "year": "1517",
+        "lat": 45.548,
+        "lng": 12.115,
+        "url": "scheda.html?nat=italia&wh=salzano&ct=Salzano, 1517"
+      },
+      {
+        "name": "Scala",
+        "year": "1732",
+        "lat": 40.655,
+        "lng": 14.606,
+        "url": "scheda.html?nat=italia&wh=sanpierdamiani&ct=Scala, 1732"
+      },
+      {
+        "name": "Siena",
+        "year": "1730",
+        "lat": 43.318,
+        "lng": 11.33,
+        "url": "scheda.html?nat=italia&wh=caterinadasiena&ct=Siena, 1730"
+      },
+      {
+        "name": "Trani",
+        "year": "XI sec.",
+        "lat": 41.272,
+        "lng": 16.417,
+        "url": "scheda.html?nat=italia&wh=trani&ct=Trani, XI sec."
+      },
+      {
+        "name": "Turim",
+        "year": "1453",
+        "lat": 45.07,
+        "lng": 7.686,
+        "url": "scheda_b.html?nat=italia&wh=torinoa&ct=Turim, 1453"
+      },
+      {
+        "name": "Turim",
+        "year": "1640",
+        "lat": 45.08,
+        "lng": 7.69,
+        "url": "scheda.html?nat=italia&wh=torinob&ct=Turim, 1640"
+      },
+      {
+        "name": "Veroli",
+        "year": "1570",
+        "lat": 41.69,
+        "lng": 13.419,
+        "url": "scheda.html?nat=italia&wh=veroli&ct=Veroli, 1570"
+      },
+      {
+        "name": "Volterra",
+        "year": "1472",
+        "lat": 43.402,
+        "lng": 10.859,
+        "url": "scheda.html?nat=italia&wh=volterra&ct=Volterra, 1472"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "countryName": "Spain",
+    "flag": "🇪🇸",
+    "coords": [
+      40.4637,
+      -3.7492
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Alboraya-Almacéra",
+        "year": "1348",
+        "lat": 39.5,
+        "lng": -0.35,
+        "url": "scheda_b.html?nat=spagna&wh=alboraya-almacera&ct=Alboraya-Almacéra, 1348"
+      },
+      {
+        "name": "Alcalà",
+        "year": "1597",
+        "lat": 40.48,
+        "lng": -3.36,
+        "url": "scheda.html?nat=spagna&wh=alcala&ct=Alcalà, 1597"
+      },
+      {
+        "name": "Alcoy",
+        "year": "1568",
+        "lat": 38.69,
+        "lng": -0.47,
+        "url": "scheda.html?nat=spagna&wh=alcoy&ct=Alcoy, 1568"
+      },
+      {
+        "name": "Caravaca de la Cruz",
+        "year": "1231",
+        "lat": 38.1,
+        "lng": -1.86,
+        "url": "scheda.html?nat=spagna&wh=caravaca_de_la_cruz&ct=Caravaca de la Cruz, 1231"
+      },
+      {
+        "name": "Cimballa",
+        "year": "1370",
+        "lat": 41.1,
+        "lng": -1.78,
+        "url": "scheda.html?nat=spagna&wh=cimballa&ct=Cimballa, 1370"
+      },
+      {
+        "name": "Daroca",
+        "year": "1239",
+        "lat": 41.11,
+        "lng": -1.41,
+        "url": "scheda_b.html?nat=spagna&wh=daroca&ct=Daroca, 1239"
+      },
+      {
+        "name": "Gerona",
+        "year": "1297",
+        "lat": 41.98,
+        "lng": 2.82,
+        "url": "scheda.html?nat=spagna&wh=gerona&ct=Gerona, 1297"
+      },
+      {
+        "name": "Gorkum-El Escorial",
+        "year": "1572",
+        "lat": 40.58,
+        "lng": -4.14,
+        "url": "scheda.html?nat=spagna&wh=gorkum-el_escorial&ct=Gorkum-El Escorial, 1572"
+      },
+      {
+        "name": "Guadalupe",
+        "year": "1420",
+        "lat": 39.45,
+        "lng": -5.33,
+        "url": "scheda.html?nat=spagna&wh=guadalupe&ct=Guadalupe, 1420"
+      },
+      {
+        "name": "Ivorra",
+        "year": "1010",
+        "lat": 41.77,
+        "lng": 1.39,
+        "url": "scheda_c.html?nat=spagna&wh=ivorra&ct=Ivorra, 1010"
+      },
+      {
+        "name": "Moncada",
+        "year": "1392",
+        "lat": 39.54,
+        "lng": -0.39,
+        "url": "scheda.html?nat=spagna&wh=moncada&ct=Moncada, 1392"
+      },
+      {
+        "name": "Montserrat",
+        "year": "1657",
+        "lat": 41.59,
+        "lng": 1.83,
+        "url": "scheda.html?nat=spagna&wh=montserrat&ct=Montserrat, 1657"
+      },
+      {
+        "name": "O'Cebreiro",
+        "year": "1300",
+        "lat": 42.71,
+        "lng": -7.04,
+        "url": "scheda.html?nat=spagna&wh=ocebreiro&ct=O'Cebreiro, 1300"
+      },
+      {
+        "name": "Onil",
+        "year": "1824",
+        "lat": 38.63,
+        "lng": -0.67,
+        "url": "scheda_b.html?nat=spagna&wh=onil&ct=Onil, 1824"
+      },
+      {
+        "name": "Ponferrada",
+        "year": "1533",
+        "lat": 42.54,
+        "lng": -6.59,
+        "url": "scheda.html?nat=spagna&wh=ponferrada&ct=Ponferrada, 1533"
+      },
+      {
+        "name": "S. Juan de las Abadesas",
+        "year": "1251",
+        "lat": 42.23,
+        "lng": 2.28,
+        "url": "scheda.html?nat=spagna&wh=s_j_de_las_abadeses&ct=S. Juan de las Abadesas , 1251"
+      },
+      {
+        "name": "Silla",
+        "year": "1907",
+        "lat": 39.36,
+        "lng": -0.41,
+        "url": "scheda.html?nat=spagna&wh=silla&ct=Silla, 1907"
+      },
+      {
+        "name": "Valença",
+        "year": "",
+        "lat": 39.46,
+        "lng": -0.37,
+        "url": "scheda_b.html?nat=spagna&wh=valencia&ct=Valença"
+      },
+      {
+        "name": "Zaragoza",
+        "year": "1427",
+        "lat": 41.64,
+        "lng": -0.88,
+        "url": "scheda.html?nat=spagna&wh=zaragoza&ct=Zaragoza, 1427"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "countryName": "France",
+    "flag": "🇫🇷",
+    "coords": [
+      46.2276,
+      2.2137
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Avignone",
+        "year": "1433",
+        "lat": 43.949,
+        "lng": 4.805,
+        "url": "scheda_b.html?nat=francia&wh=avignone&ct=Avignone, 1433"
+      },
+      {
+        "name": "Blanot",
+        "year": "1331",
+        "lat": 46.474,
+        "lng": 4.731,
+        "url": "scheda.html?nat=francia&wh=blanot&ct=Blanot, 1331"
+      },
+      {
+        "name": "Bordeaux",
+        "year": "1822",
+        "lat": 44.837,
+        "lng": -0.579,
+        "url": "scheda.html?nat=francia&wh=bordeaux&ct=Bordeaux, 1822"
+      },
+      {
+        "name": "Dijon",
+        "year": "1430",
+        "lat": 47.322,
+        "lng": 5.041,
+        "url": "scheda.html?nat=francia&wh=digione&ct=Dijon, 1430"
+      },
+      {
+        "name": "Douai",
+        "year": "1254",
+        "lat": 50.373,
+        "lng": 3.081,
+        "url": "scheda.html?nat=francia&wh=douai&ct=Douai, 1254"
+      },
+      {
+        "name": "Faverney",
+        "year": "1608",
+        "lat": 47.767,
+        "lng": 6.105,
+        "url": "scheda.html?nat=francia&wh=faverney&ct=Faverney, 1608"
+      },
+      {
+        "name": "La Rochelle",
+        "year": "1461",
+        "lat": 46.16,
+        "lng": -1.151,
+        "url": "scheda.html?nat=francia&wh=la_rochelle&ct=La Rochelle, 1461"
+      },
+      {
+        "name": "Neuvy Saint Sepulcre",
+        "year": "1257",
+        "lat": 46.596,
+        "lng": 1.808,
+        "url": "scheda.html?nat=francia&wh=la_rochelle&ct=Neuvy Saint Sepulcre, 1257"
+      },
+      {
+        "name": "Les Ulmes",
+        "year": "1668",
+        "lat": 47.218,
+        "lng": -0.106,
+        "url": "scheda.html?nat=francia&wh=les_ulmes&ct=Les Ulmes, 1668"
+      },
+      {
+        "name": "Marseille-En-Beauvais",
+        "year": "1533",
+        "lat": 49.576,
+        "lng": 1.954,
+        "url": "scheda.html?nat=francia&wh=marseille-en-beauvais&ct=Marseille-En-Beauvais, 1533"
+      },
+      {
+        "name": "Paris",
+        "year": "1290",
+        "lat": 48.856,
+        "lng": 2.352,
+        "url": "scheda_b.html?nat=francia&wh=parigi&ct=Paris, 1290"
+      },
+      {
+        "name": "Pressac",
+        "year": "1643",
+        "lat": 46.116,
+        "lng": 0.571,
+        "url": "scheda.html?nat=francia&wh=pressac&ct=Pressac, 1643"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "countryName": "Germany",
+    "flag": "🇩🇪",
+    "coords": [
+      51.165,
+      10.451
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Augsburg",
+        "year": "1194",
+        "lat": 48.37,
+        "lng": 10.89,
+        "url": "scheda_b.html?nat=germania&wh=augsburg&ct=Augsburg, 1194"
+      },
+      {
+        "name": "Benningen",
+        "year": "1216",
+        "lat": 47.96,
+        "lng": 10.2,
+        "url": "scheda_b.html?nat=germania&wh=benningen&ct=Benningen, 1216"
+      },
+      {
+        "name": "Bettbrunn",
+        "year": "1125",
+        "lat": 48.83,
+        "lng": 11.58,
+        "url": "scheda_b.html?nat=germania&wh=bettbrunn&ct=Bettbrunn, 1125"
+      },
+      {
+        "name": "Erding",
+        "year": "1417",
+        "lat": 48.3,
+        "lng": 11.9,
+        "url": "scheda_b.html?nat=germania&wh=erding&ct=Erding, 1417"
+      },
+      {
+        "name": "Kranenburg",
+        "year": "1280",
+        "lat": 51.79,
+        "lng": 6,
+        "url": "scheda_b.html?nat=germania&wh=kranenburg_bei_kleve&ct=Kranenburg, 1280"
+      },
+      {
+        "name": "Regensburg",
+        "year": "1255",
+        "lat": 49.01,
+        "lng": 12.09,
+        "url": "scheda_b.html?nat=germania&wh=regensburg&ct=Regensburg, 1255"
+      },
+      {
+        "name": "Walldürn",
+        "year": "1330",
+        "lat": 49.58,
+        "lng": 9.36,
+        "url": "scheda_b.html?nat=germania&wh=walldurn&ct=Walldürn, 1330"
+      },
+      {
+        "name": "Weingarten",
+        "year": "",
+        "lat": 47.8,
+        "lng": 9.64,
+        "url": "scheda_b.html?nat=germania&wh=weingarten&ct=Weingarten"
+      },
+      {
+        "name": "Wilsnack",
+        "year": "1383",
+        "lat": 52.95,
+        "lng": 11.94,
+        "url": "scheda.html?nat=germania&wh=wilsnack&ct=Wilsnack, 1383"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "countryName": "Netherlands",
+    "flag": "🇳🇱",
+    "coords": [
+      52.132,
+      5.291
+    ],
+    "zoom": 6,
+    "cities": [
+      {
+        "name": "Alkmaar",
+        "year": "1429",
+        "lat": 52.63,
+        "lng": 4.74,
+        "url": "scheda.html?nat=olanda&wh=alkmaar&ct=Alkmaar, 1429"
+      },
+      {
+        "name": "Amsterdam",
+        "year": "1345",
+        "lat": 52.36,
+        "lng": 4.9,
+        "url": "scheda_b.html?nat=olanda&wh=amsterdam&ct=Amsterdam, 1345"
+      },
+      {
+        "name": "Bergen",
+        "year": "1421",
+        "lat": 52.66,
+        "lng": 4.7,
+        "url": "scheda.html?nat=olanda&wh=bergen&ct=Bergen, 1421"
+      },
+      {
+        "name": "Boxmeer",
+        "year": "1400",
+        "lat": 51.64,
+        "lng": 5.94,
+        "url": "scheda.html?nat=olanda&wh=boxmeer&ct=Boxmeer, 1400"
+      },
+      {
+        "name": "Boxtel-Hoogstraten",
+        "year": "1380",
+        "lat": 51.58,
+        "lng": 5.32,
+        "url": "scheda.html?nat=olanda&wh=boxtel-hoogstraten&ct=Boxtel-Hoogstraten, 1380"
+      },
+      {
+        "name": "Breda-Niervaart",
+        "year": "1300",
+        "lat": 51.58,
+        "lng": 4.77,
+        "url": "scheda.html?nat=olanda&wh=breda-niervaart&ct=Breda-Niervaart, 1300"
+      },
+      {
+        "name": "Meerssen",
+        "year": "1222-1465",
+        "lat": 50.88,
+        "lng": 5.75,
+        "url": "scheda.html?nat=olanda&wh=meerssen&ct=Meerssen, 1222-1465"
+      },
+      {
+        "name": "Stiphout",
+        "year": "1342",
+        "lat": 51.48,
+        "lng": 5.62,
+        "url": "scheda.html?nat=olanda&wh=stiphout&ct=Stiphout, 1342"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "countryName": "Belgium",
+    "flag": "🇧🇪",
+    "coords": [
+      50.8503,
+      4.3517
+    ],
+    "zoom": 7,
+    "cities": [
+      {
+        "name": "Bois-Seigneur-Isaac",
+        "year": "1405",
+        "lat": 50.6385,
+        "lng": 4.3218,
+        "url": "scheda.html?nat=belgio&wh=boisseigneurisaac&ct=Bois-Seigneur-Isaac, 1405"
+      },
+      {
+        "name": "Bruges",
+        "year": "1203",
+        "lat": 51.2093,
+        "lng": 3.2247,
+        "url": "scheda.html?nat=belgio&wh=bruges&ct=Bruges, 1203"
+      },
+      {
+        "name": "Bruxelas",
+        "year": "1370",
+        "lat": 50.8503,
+        "lng": 4.3517,
+        "url": "scheda.html?nat=belgio&wh=bruxelles&ct=Bruxelas, 1370"
+      },
+      {
+        "name": "Herentals",
+        "year": "1412",
+        "lat": 51.1764,
+        "lng": 4.8364,
+        "url": "scheda.html?nat=belgio&wh=herentals&ct=Herentals, 1412"
+      },
+      {
+        "name": "Herkenrode-Hasselt",
+        "year": "1317",
+        "lat": 50.9307,
+        "lng": 5.3325,
+        "url": "scheda.html?nat=belgio&wh=herkenrode&ct=Herkenrode-Hasselt, 1317"
+      },
+      {
+        "name": "Liège",
+        "year": "1374",
+        "lat": 50.6326,
+        "lng": 5.5797,
+        "url": "scheda.html?nat=belgio&wh=liege&ct=Liège, 1374"
+      },
+      {
+        "name": "Middleburg-Lovanio",
+        "year": "1374",
+        "lat": 51.2185,
+        "lng": 3.3283,
+        "url": "scheda.html?nat=belgio&wh=middleburg&ct=Middleburg-Lovanio, 1374"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "countryName": "Poland",
+    "flag": "🇵🇱",
+    "coords": [
+      51.9194,
+      19.1451
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Cracòvia",
+        "year": "1345",
+        "lat": 50.064,
+        "lng": 19.944,
+        "url": "scheda.html?nat=polonia&wh=cracovia&ct=Cracòvia, 1345"
+      },
+      {
+        "name": "Glotowo",
+        "year": "1290",
+        "lat": 53.978,
+        "lng": 20.252,
+        "url": "scheda.html?nat=polonia&wh=glotowo&ct=Glotowo, 1290"
+      },
+      {
+        "name": "Legnica",
+        "year": "2013",
+        "lat": 51.207,
+        "lng": 16.161,
+        "url": "scheda_b.html?nat=polonia&wh=legnica&ct=Legnica, 2013"
+      },
+      {
+        "name": "Poznan",
+        "year": "1399",
+        "lat": 52.406,
+        "lng": 16.925,
+        "url": "scheda.html?nat=polonia&wh=poznan&ct=Poznan, 1399"
+      },
+      {
+        "name": "Sokółka",
+        "year": "2008",
+        "lat": 53.4,
+        "lng": 23.5,
+        "url": "scheda_c.html?nat=polonia&wh=sokolka&ct=Sokółka 2008"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "countryName": "Austria",
+    "flag": "🇦🇹",
+    "coords": [
+      47.516,
+      14.55
+    ],
+    "zoom": 6,
+    "cities": [
+      {
+        "name": "Fiecht",
+        "year": "1310",
+        "lat": 47.376,
+        "lng": 11.716,
+        "url": "scheda.html?nat=austria&wh=fiecht&ct=Fiecht, 1310"
+      },
+      {
+        "name": "Seefeld",
+        "year": "1384",
+        "lat": 47.329,
+        "lng": 11.186,
+        "url": "scheda.html?nat=austria&wh=seefeld&ct=Seefeld, 1384"
+      },
+      {
+        "name": "Weiten-Raxendorf",
+        "year": "1411",
+        "lat": 48.333,
+        "lng": 15.283,
+        "url": "scheda.html?nat=austria&wh=weiten-raxendorf&ct=Weiten-Raxendorf, 1411"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "countryName": "Egypt",
+    "flag": "🇪🇬",
+    "coords": [
+      26.82,
+      30.802
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "S. Maria Egiziaca",
+        "year": "IV-V sec.",
+        "lat": 30.04,
+        "lng": 31.23,
+        "url": "scheda.html?nat=egitto&wh=s_maria_egiziaca&ct=S. Maria Egiziaca, IV-V sec."
+      },
+      {
+        "name": "Scete",
+        "year": "III-V sec.",
+        "lat": 30.41,
+        "lng": 30.34,
+        "url": "scheda.html?nat=egitto&wh=scete&ct=Scete, III-V sec."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "countryName": "Portugal",
+    "flag": "🇵🇹",
+    "coords": [
+      39.399,
+      -8.224
+    ],
+    "zoom": 6,
+    "cities": [
+      {
+        "name": "Santarém",
+        "year": "1247",
+        "lat": 39.236,
+        "lng": -8.686,
+        "url": "scheda_b.html?nat=portogallo&wh=santarem&ct=Santarém, 1247"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "countryName": "Croatia",
+    "flag": "🇭🇷",
+    "coords": [
+      46.25,
+      16.23
+    ],
+    "zoom": 6,
+    "cities": [
+      {
+        "name": "Ludbreg",
+        "year": "1411",
+        "lat": 46.25,
+        "lng": 16.23,
+        "url": "scheda_b.html?nat=croazia&wh=ludbreg&ct=Ludbreg, 1411"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "countryName": "Switzerland",
+    "flag": "🇨🇭",
+    "coords": [
+      46.818,
+      8.227
+    ],
+    "zoom": 7,
+    "cities": [
+      {
+        "name": "Ettiswil",
+        "year": "1447",
+        "lat": 47.14,
+        "lng": 8.01,
+        "url": "scheda_b.html?nat=svizzera&wh=ettiswil&ct=Ettiswil, 1447"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "countryName": "Argentina",
+    "flag": "🇦🇷",
+    "coords": [
+      -38.416,
+      -63.616
+    ],
+    "zoom": 4,
+    "cities": [
+      {
+        "name": "Buenos Aires",
+        "year": "1922-1994-1996",
+        "lat": -34.603,
+        "lng": -58.381,
+        "url": "scheda_c.html?nat=argentina&wh=buenosaires&ct=Buenos Aires, 1922-1994-1996"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "countryName": "Colombia",
+    "flag": "🇨🇴",
+    "coords": [
+      4.57,
+      -74.297
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Tumaco",
+        "year": "1906",
+        "lat": 1.798,
+        "lng": -78.815,
+        "url": "scheda.html?nat=colombia&wh=tumaco&ct=Tumaco, 1906"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "countryName": "Mexico",
+    "flag": "🇲🇽",
+    "coords": [
+      23.634,
+      -102.552
+    ],
+    "zoom": 4,
+    "cities": [
+      {
+        "name": "Tixtla",
+        "year": "2006",
+        "lat": 17.56,
+        "lng": -99.4,
+        "url": "scheda_b.html?nat=messico&wh=tixtla&ct=Tixtla, 2006"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "countryName": "Peru",
+    "flag": "🇵🇪",
+    "coords": [
+      -9.189,
+      -75.015
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Eten",
+        "year": "1649",
+        "lat": -6.92,
+        "lng": -79.86,
+        "url": "scheda.html?nat=peru&wh=eten&ct=Eten, 1649"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "countryName": "Venezuela",
+    "flag": "🇻🇪",
+    "coords": [
+      6.423,
+      -66.589
+    ],
+    "zoom": 5,
+    "cities": [
+      {
+        "name": "Betania",
+        "year": "1991",
+        "lat": 10.15,
+        "lng": -66.86,
+        "url": "scheda.html?nat=venezuela&wh=betania&ct=Betania, 1991"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "countryName": "India",
+    "flag": "🇮🇳",
+    "coords": [
+      20.593,
+      78.962
+    ],
+    "zoom": 4,
+    "cities": [
+      {
+        "name": "Chirattakonam",
+        "year": "2001",
+        "lat": 8.52,
+        "lng": 76.93,
+        "url": "scheda.html?nat=india&wh=chirattakonam&ct=Chirattakonam, 2001"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "countryName": "Martinique Island",
+    "flag": "🇲🇶",
+    "coords": [
+      14.641,
+      -61.024
+    ],
+    "zoom": 8,
+    "cities": [
+      {
+        "name": "Morne-Rouge",
+        "year": "1902",
+        "lat": 14.77,
+        "lng": -61.13,
+        "url": "scheda.html?nat=isole_della_martinica&wh=morne-rouge&ct=Morne-Rouge, 1902"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "countryName": "Reunion Island",
+    "flag": "🇷🇪",
+    "coords": [
+      -21.115,
+      55.536
+    ],
+    "zoom": 8,
+    "cities": [
+      {
+        "name": "Saint-André",
+        "year": "1902",
+        "lat": -20.96,
+        "lng": 55.65,
+        "url": "scheda.html?nat=isole_della_reunion&wh=saint-andre_de_la_reunion&ct=Saint-André da Reunião, 1902"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "countryName": "Special Topics",
+    "flag": "🌟",
+    "coords": [
+      20,
+      0
+    ],
+    "zoom": 2,
+    "cities": [
+      {
+        "name": "Painel Introdutório A",
+        "year": "Intro",
+        "lat": 41.8,
+        "lng": 12.4,
+        "url": "scheda.html?nat=pannelli&wh=pannelloa&ct=Painel A"
+      },
+      {
+        "name": "Painel Introdutório B",
+        "year": "Intro",
+        "lat": 41.8,
+        "lng": 12.5,
+        "url": "scheda.html?nat=pannelli&wh=pannellob&ct=Painel B"
+      },
+      {
+        "name": "Sta. Margarida Maria de Alacoque",
+        "year": "séc. XVII",
+        "lat": 46.45,
+        "lng": 4.05,
+        "url": "scheda.html?nat=miracoli&wh=sacrocuore&ct=Santa Margarida Maria de Alacoque - Sagrado Coração de Jesus, séc. XVII"
+      },
+      {
+        "name": "São Tomás de Aquino",
+        "year": "1224-1274",
+        "lat": 41.52,
+        "lng": 13.67,
+        "url": "scheda.html?nat=miracoli&wh=tommasodacquino&ct=São Tomás de Aquino, 1224-1274"
+      },
+      {
+        "name": "São Francisco de Assis",
+        "year": "séc. XIII",
+        "lat": 43.07,
+        "lng": 12.61,
+        "url": "scheda.html?nat=miracoli&wh=francescodassisi&ct=São Francisco de Assis, séc. XIII"
+      },
+      {
+        "name": "São Bernardo de Claraval",
+        "year": "séc. XII",
+        "lat": 48.14,
+        "lng": 4.78,
+        "url": "scheda.html?nat=miracoli&wh=chiaravalle-bosco&ct=São Bernardo de Claraval, séc. XII"
+      },
+      {
+        "name": "São João Bosco",
+        "year": "1848",
+        "lat": 45.08,
+        "lng": 7.68,
+        "url": "scheda.html?nat=miracoli&wh=chiaravalle-bosco&ct=São João Bosco, 1848"
+      },
+      {
+        "name": "Santa Germana Cousin",
+        "year": "1589",
+        "lat": 43.61,
+        "lng": 1.28,
+        "url": "scheda.html?nat=miracoli&wh=pibrac&ct=Santa Germana Cousin (Pibrac), 1589"
+      },
+      {
+        "name": "Santo Egídio",
+        "year": "",
+        "lat": 43.64,
+        "lng": 4.41,
+        "url": "scheda.html?nat=miracoli&wh=egidio&ct=Santo Egídio"
+      },
+      {
+        "name": "São Stanislaus Kostka",
+        "year": "1550-1568",
+        "lat": 52.02,
+        "lng": 20.88,
+        "url": "scheda.html?nat=miracoli&wh=kostka&ct=São Stanislaus Kostka, 1550-1568"
+      },
+      {
+        "name": "Santa Faustina Kowalska",
+        "year": "séc. XX",
+        "lat": 52.22,
+        "lng": 21.01,
+        "url": "scheda.html?nat=miracoli&wh=kowalska&ct=Santa Faustina Kowalska, séc. XX"
+      },
+      {
+        "name": "São Sátiro",
+        "year": "séc. IV",
+        "lat": 45.46,
+        "lng": 9.19,
+        "url": "scheda.html?nat=miracoli&wh=sansatiro&ct=São Sátiro, séc. IV"
+      },
+      {
+        "name": "Santa Catarina da Siena",
+        "year": "1347-1380",
+        "lat": 43.31,
+        "lng": 11.33,
+        "url": "scheda.html?nat=miracoli&wh=siena&ct=Santa Catarina da Siena, 1347-1380"
+      },
+      {
+        "name": "Bta. Alexandrina Da Costa",
+        "year": "1904-1955",
+        "lat": 41.4,
+        "lng": -8.76,
+        "url": "scheda.html?nat=miracoli&wh=dacosta&ct=Beata Alexandrina Maria Da Costa, 1904-1955"
+      },
+      {
+        "name": "Bta. Anna Katherina Emmerick",
+        "year": "1774-1824",
+        "lat": 51.84,
+        "lng": 7.28,
+        "url": "scheda.html?nat=miracoli&wh=emmerick&ct=Beata Anna Katherina Emmerick, 1774-1824"
+      },
+      {
+        "name": "Bto. Nicolau Stenon",
+        "year": "1638-1686",
+        "lat": 55.67,
+        "lng": 12.56,
+        "url": "scheda.html?nat=miracoli&wh=steenen&ct=Beato Nicolau Stenon (Niels Steensen) , 1638-1686"
+      },
+      {
+        "name": "São Nicolau de Flue",
+        "year": "1417",
+        "lat": 46.87,
+        "lng": 8.24,
+        "url": "scheda.html?nat=miracoli&wh=steenen&ct=São Nicolau de Flue, 1417"
+      },
+      {
+        "name": "Anne-Louise Lateau",
+        "year": "1850",
+        "lat": 50.48,
+        "lng": 4.26,
+        "url": "scheda.html?nat=miracoli&wh=steenen&ct=Serva de Deus Anne-Louise Lateau, 1850"
+      },
+      {
+        "name": "Ven. Marthe Robin",
+        "year": "1902-1981",
+        "lat": 45.22,
+        "lng": 4.97,
+        "url": "scheda.html?nat=miracoli&wh=robin&ct=Venerável Marthe Robin, 1902-1981"
+      },
+      {
+        "name": "André de Frossard",
+        "year": "séc. XX",
+        "lat": 48.85,
+        "lng": 2.35,
+        "url": "scheda.html?nat=miracoli&wh=frossard&ct=André de Frossard, séc. XX"
+      },
+      {
+        "name": "Teresa Neumann",
+        "year": "1898-1962",
+        "lat": 49.82,
+        "lng": 12.3,
+        "url": "scheda.html?nat=miracoli&wh=neumann&ct=Teresa Neumann, 1898-1962"
+      },
+      {
+        "name": "N. Senhora de Calanda",
+        "year": "1640",
+        "lat": 40.94,
+        "lng": -0.23,
+        "url": "scheda.html?nat=miracoli&wh=calanda&ct=Calanda, Espanha, Miguel-Juan Pellicer, 1640"
+      },
+      {
+        "name": "N. Senhora de Guadalupe",
+        "year": "1531",
+        "lat": 19.48,
+        "lng": -99.11,
+        "url": "scheda.html?nat=miracoli&wh=guadalupe-messico&ct=Guadalupe, México, Juan Diego, 1531"
+      },
+      {
+        "name": "N. Senhora de Lourdes",
+        "year": "1888",
+        "lat": 43.09,
+        "lng": -0.04,
+        "url": "scheda.html?nat=miracoli&wh=lourdes&ct=Lourdes, França, Santa Bernardete, 1888"
+      },
+      {
+        "name": "N. Senhora de Paris",
+        "year": "1830",
+        "lat": 48.85,
+        "lng": 2.32,
+        "url": "scheda.html?nat=miracoli&wh=paris&ct=Parisi, França, Santa Catarina Labouré, 1830"
+      },
+      {
+        "name": "Fátima (Anjo da Paz)",
+        "year": "1916",
+        "lat": 39.61,
+        "lng": -8.65,
+        "url": "scheda_c.html?nat=miracoli&wh=angelodellapace&ct=Fátima, Portugal, O Anjo da Paz, 1916"
+      },
+      {
+        "name": "Comunhões Prodigiosas (Parte 1)",
+        "year": "Geral",
+        "lat": 41.9,
+        "lng": 12.4,
+        "url": "scheda.html?nat=miracoli&wh=comunioni1&ct=Comunhões Prodigiosas (primeira parte)"
+      },
+      {
+        "name": "Comunhões Prodigiosas (Parte 2)",
+        "year": "Geral",
+        "lat": 41.9,
+        "lng": 12.4,
+        "url": "scheda.html?nat=miracoli&wh=comunioni2&ct=Comunhões Prodigiosas (segunda parte)"
+      }
+    ]
+  }
+]
