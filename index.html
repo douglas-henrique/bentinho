@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milagres Eucarísticos - Mapa Interativo</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+<div class="app-card">
+    <header class="top-navbar">
+        <div class="header-left">
+            <div class="brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                MILAGRES
+            </div>
+            <nav class="nav-menu">
+                <a id="nav-explore" class="active">Explorar</a>
+                <a id="nav-about">Sobre</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div id="page-explore">
+            <aside class="sidebar">
+                <div id="view-countries" class="view-container">
+                    <div class="search-area">
+                        <h2>Onde você deseja ir?</h2>
+                        <span class="global-counter" id="globalCounter"></span>
+                        <div class="search-box">
+                            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" class="search-input" id="searchCountryInput" placeholder="Pesquisar país...">
+                        </div>
+                    </div>
+                    <div class="country-grid" id="countryGrid"></div>
+                </div>
+
+                <div id="view-country-details" class="view-container">
+                    <div class="back-nav">
+                        <button class="btn-back" id="backToCountriesButton">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                            Voltar
+                        </button>
+                        <div class="detail-title" id="detailCountryTitle"></div>
+                    </div>
+                    <div class="miracle-list" id="miracleList"></div>
+                </div>
+            </aside>
+
+            <section class="map-container">
+                <div id="map"></div>
+            </section>
+        </div>
+
+        <div id="page-about">
+            <div class="about-wrapper">
+                <h2>Sobre o Projeto</h2>
+                <p>Navegue interativamente pelo catálogo documentado pelo Beato Carlo Acutis.</p>
+                <div class="about-credits">
+                    <p><strong>Créditos:</strong></p>
+                    <p>Acervo oficial pertence à Associação Amigos de Carlo Acutis. <a href="https://www.miracolieucaristici.org" target="_blank">www.miracolieucaristici.org</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="miracleModal">
+    <div class="modal-content">
+        <div class="modal-header-top">
+            <div class="modal-title-area">
+                <h2 id="modalTitle">Carregando...</h2>
+                <div class="modal-tag" id="modalYear"></div>
+            </div>
+            <button class="btn-close" id="closeModalButton">×</button>
+        </div>
+        <div class="iframe-container">
+            <div class="loading-spinner">Carregando documento oficial...</div>
+            <iframe id="miracleIframe" title="Documento oficial do milagre" src=""></iframe>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
