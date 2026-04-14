@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +19,11 @@
     "vite": "^8.0.8"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.32.2",
     "@tailwindcss/postcss": "^4.2.2",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.9",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "wrangler": "^4.82.2"
   }
 }

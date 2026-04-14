@@ -72,6 +72,8 @@ const APP_LANGUAGES = new Set(['pt-BR', 'en']);
 const DEFAULT_MAP_CENTER = [20, 0];
 const DEFAULT_MAP_ZOOM = 3;
 const USER_MAP_ZOOM = 8;
+const MIN_MAP_ZOOM = 3;
+const MAX_MAP_ZOOM = 8;
 const COUNTRY_CODE_BY_ID = {
     1: 'it',
     2: 'es',
@@ -104,19 +106,28 @@ const TRANSLATIONS = {
             title: 'Jesus está em todos os lugares',
             placeholder: 'Pesquisar país...',
             clearAria: 'Limpar busca',
-            counter: 'Explore {count} milagres eucarísticos documentados ao redor do mundo. Escolha um país para começar.'
+            counter: 'Explore <strong>{count}</strong> milagres eucarísticos documentados ao redor do mundo. Escolha um país para começar.'
         },
         sections: {
             countries: 'Países',
             history: 'Histórico',
             historyEmpty: 'Nenhum país visitado ainda'
         },
+        miracle: { city: 'Cidade', year: 'Ano' },
         detail: { back: 'Voltar', countryRegion: 'País/Região' },
         about: {
-            title: 'Sobre o Projeto',
-            description: 'Navegue interativamente pelo catálogo documentado pelo Beato Carlo Acutis.',
+            title: 'Sobre o Bentinho',
+            subtitle: 'Bentinho foi criado para aproximar as pessoas de Deus e ajudá-las a conhecer mais de Suas obras.',
+            featureTitle: 'Uma plataforma para fé, devoção e conhecimento',
+            featureBody: 'A seção de milagres eucarísticos no Bentinho é uma releitura inspirada no trabalho de Carlo Acutis e no acervo oficial de sua associação.',
             creditsLabel: 'Créditos:',
-            creditsText: 'Acervo oficial pertence à Associação Amigos de Carlo Acutis.'
+            creditsText: 'Conteúdo original dos milagres eucarísticos disponível em',
+            placeholder: {
+                photoOne: 'Espaço para foto 1',
+                photoTwo: 'Espaço para foto 2',
+                photoThree: 'Espaço para foto 3',
+                photoFour: 'Espaço para foto 4'
+            }
         },
         modal: { loading: 'Carregando documento oficial...' },
         status: { loading: 'Carregando...', ready: '' },
@@ -129,19 +140,28 @@ const TRANSLATIONS = {
             title: 'Jesus is present everywhere',
             placeholder: 'Search country...',
             clearAria: 'Clear search',
-            counter: 'Explore {count} documented Eucharistic miracles around the world. Choose a country to begin.'
+            counter: 'Explore <strong>{count}</strong> documented Eucharistic miracles around the world. Choose a country to begin.'
         },
         sections: {
             countries: 'Countries',
             history: 'History',
             historyEmpty: 'No visited countries yet'
         },
+        miracle: { city: 'City', year: 'Year' },
         detail: { back: 'Back', countryRegion: 'Country/Region' },
         about: {
-            title: 'About the Project',
-            description: 'Browse the catalog documented by Blessed Carlo Acutis interactively.',
+            title: 'About Bentinho',
+            subtitle: 'Bentinho was created to help people draw closer to God and discover more of His works.',
+            featureTitle: 'A platform for faith, devotion, and knowledge',
+            featureBody: 'The Eucharistic miracles section in Bentinho is a reinterpretation inspired by Carlo Acutis work and the official archive from his association.',
             creditsLabel: 'Credits:',
-            creditsText: 'The official collection belongs to Associazione Amici di Carlo Acutis.'
+            creditsText: 'Original Eucharistic miracles content available at',
+            placeholder: {
+                photoOne: 'Photo slot 1',
+                photoTwo: 'Photo slot 2',
+                photoThree: 'Photo slot 3',
+                photoFour: 'Photo slot 4'
+            }
         },
         modal: { loading: 'Loading official document...' },
         status: { loading: 'Loading...', ready: '' },
@@ -155,6 +175,9 @@ let activeMiracleUrl = '';
 let activeMiracleUnsubscribers = [];
 let currentLanguage = 'pt-BR';
 let visitedCountryIds = [];
+let activePage = 'explore';
+let pageTransitionToken = 0;
+let pageTransitionTimeoutId = null;
 
 const miracleStatus = new Map();
 const miracleStatusListeners = new Map();
@@ -245,7 +268,11 @@ const selectors = {
     miracleIframe: document.getElementById('miracleIframe')
 };
 
-const map = L.map('map', { zoomControl: false }).setView(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM);
+const map = L.map('map', {
+    zoomControl: false,
+    minZoom: MIN_MAP_ZOOM,
+    maxZoom: MAX_MAP_ZOOM
+}).setView(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM);
 const markersCluster = L.markerClusterGroup({
     showCoverageOnHover: false,
     spiderfyOnMaxZoom: true,
@@ -291,9 +318,9 @@ function applyTranslations() {
 
     const totalMiracles = countries.reduce((sum, country) => sum + country.totalMiracles, 0);
     const counterText = t('search.counter', { count: String(totalMiracles) });
-    selectors.globalCounter.innerText = counterText;
+    selectors.globalCounter.innerHTML = counterText;
     if (selectors.mobileGlobalCounter) {
-        selectors.mobileGlobalCounter.innerText = counterText;
+        selectors.mobileGlobalCounter.innerHTML = counterText;
     }
     selectors.languageCurrentFlag.innerHTML = buildLanguageFlagImage(currentLanguage);
     selectors.languageOptions.forEach((option) => {
@@ -392,24 +419,88 @@ function rerenderCountryUI() {
 }
 
 function setActivePage(page) {
-    selectors.pageExplore.style.display = 'none';
-    selectors.pageAbout.style.display = 'none';
+    if (page !== 'explore' && page !== 'about') {
+        return;
+    }
+
+    if (page === activePage) {
+        return;
+    }
+
+    const currentPageEl = activePage === 'explore' ? selectors.pageExplore : selectors.pageAbout;
+    const nextPageEl = page === 'explore' ? selectors.pageExplore : selectors.pageAbout;
+    const nextDisplayValue = page === 'explore' ? 'flex' : 'block';
+    const prefersReducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    pageTransitionToken += 1;
+    const currentToken = pageTransitionToken;
+
+    if (pageTransitionTimeoutId) {
+        clearTimeout(pageTransitionTimeoutId);
+        pageTransitionTimeoutId = null;
+    }
+
     selectors.navExplore.classList.remove('active');
     selectors.navAbout.classList.remove('active');
 
     if (page === 'explore') {
-        selectors.pageExplore.style.display = 'flex';
         selectors.navExplore.classList.add('active');
         selectors.navExplore.setAttribute('aria-current', 'page');
         selectors.navAbout.removeAttribute('aria-current');
-        setTimeout(() => map.invalidateSize(), 100);
+    } else {
+        selectors.navAbout.classList.add('active');
+        selectors.navAbout.setAttribute('aria-current', 'page');
+        selectors.navExplore.removeAttribute('aria-current');
+    }
+
+    if (prefersReducedMotion) {
+        currentPageEl.style.display = 'none';
+        nextPageEl.style.display = nextDisplayValue;
+        activePage = page;
+        if (page === 'explore') {
+            setTimeout(() => map.invalidateSize(), 100);
+        }
         return;
     }
 
-    selectors.pageAbout.style.display = 'block';
-    selectors.navAbout.classList.add('active');
-    selectors.navAbout.setAttribute('aria-current', 'page');
-    selectors.navExplore.removeAttribute('aria-current');
+    nextPageEl.style.display = nextDisplayValue;
+    nextPageEl.style.opacity = '0';
+    nextPageEl.style.transform = 'translateY(8px)';
+    nextPageEl.style.pointerEvents = 'none';
+    currentPageEl.style.pointerEvents = 'none';
+
+    currentPageEl.animate(
+        [
+            { opacity: 1, transform: 'translateY(0)' },
+            { opacity: 0, transform: 'translateY(-6px)' }
+        ],
+        { duration: 160, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }
+    );
+
+    nextPageEl.animate(
+        [
+            { opacity: 0, transform: 'translateY(8px)' },
+            { opacity: 1, transform: 'translateY(0)' }
+        ],
+        { duration: 220, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+    );
+
+    pageTransitionTimeoutId = setTimeout(() => {
+        if (currentToken !== pageTransitionToken) {
+            return;
+        }
+        currentPageEl.style.display = 'none';
+        currentPageEl.style.opacity = '';
+        currentPageEl.style.transform = '';
+        currentPageEl.style.pointerEvents = '';
+        nextPageEl.style.opacity = '';
+        nextPageEl.style.transform = '';
+        nextPageEl.style.pointerEvents = '';
+        activePage = page;
+        pageTransitionTimeoutId = null;
+        if (page === 'explore') {
+            map.invalidateSize();
+        }
+    }, 220);
 }
 
 function clearCountrySearch() {
@@ -669,21 +760,11 @@ function openCountryDetails(country) {
         listItem.innerHTML = `
             <div class="miracle-item-main">
                 <div class="miracle-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <line x1="12" y1="2" x2="12" y2="5"></line>
-                        <line x1="12" y1="19" x2="12" y2="22"></line>
-                        <line x1="4.9" y1="4.9" x2="7" y2="7"></line>
-                        <line x1="17" y1="17" x2="19.1" y2="19.1"></line>
-                        <line x1="2" y1="12" x2="5" y2="12"></line>
-                        <line x1="19" y1="12" x2="22" y2="12"></line>
-                        <line x1="4.9" y1="19.1" x2="7" y2="17"></line>
-                        <line x1="17" y1="7" x2="19.1" y2="4.9"></line>
-                    </svg>
+                    <span class="miracle-icon-pin" aria-hidden="true"></span>
                 </div>
                 <div class="miracle-text">
-                    <h4>${city.name}</h4>
-                    <span>${city.year}</span>
+                    <h4>${t('miracle.city')}: ${city.name}</h4>
+                    <span>${t('miracle.year')}: ${city.year}</span>
                 </div>
             </div>
             <small class="miracle-item-status"></small>

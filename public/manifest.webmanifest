@@ -6,8 +6,8 @@
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "background_color": "white",
-  "theme_color": "#111827",
+  "background_color": "#F8F7F4",
+  "theme_color": "#1E2A38",
   "icons": [
     {
       "src": "/icons/papa.png",

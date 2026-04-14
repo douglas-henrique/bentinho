@@ -4,13 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#111827',
-        'primary-light': '#f3f4f6',
-        'bg-window': '#e6f0f9',
-        'surface-muted': '#f8fafc',
-        'text-main': '#0f172a',
+        primary: '#facc15',
+        'primary-light': '#f8f3e8',
+        'bg-window': '#f8f7f4',
+        'surface-muted': '#f8f7f4',
+        'text-main': '#1e2a38',
         'text-muted': '#64748b',
-        'border-soft': '#dbe4ef'
+        'border-soft': '#e5e7eb'
       },
       borderRadius: {
         app: '20px'
