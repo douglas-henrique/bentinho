@@ -13,7 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fontsource/montserrat": "^5.2.8",
     "leaflet.markercluster": "^1.5.3",
     "vite": "^8.0.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^4.2.2"
   }
 }

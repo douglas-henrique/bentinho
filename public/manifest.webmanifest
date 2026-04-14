@@ -1,0 +1,25 @@
+{
+  "name": "Bentinho - Milagres Eucaristicos",
+  "short_name": "Bentinho",
+  "id": "/?source=pwa",
+  "description": "Explore milagres eucaristicos documentados no acervo oficial.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "/icons/papa.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/papa.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

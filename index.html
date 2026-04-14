@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111827">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bentinho">
     <title>bentinho - Mapa Interativo</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+    <script>
+        (function syncInitialLanguageMeta() {
+            const browserLanguage = (navigator.language || '').toLowerCase();
+            const isEnglish = browserLanguage.startsWith('en');
+            document.title = isEnglish ? 'Bentinho - Jesus is present everywhere' : 'Bentinho - Jesus está em todos os lugares';
+            document.documentElement.lang = isEnglish ? 'en' : 'pt-br';
+        })();
+    </script>
+    <link rel="icon" type="image/png" href="/icons/papa.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/papa.png">
     <link rel="preconnect" href="https://www.miracolieucaristici.org" crossorigin>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
 </head>
 <body>
 
-<div class="app-card">
-    <header class="top-navbar">
-        <div class="header-left">
-            <div class="brand-logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                BENTINHO
+<div class="app-card bg-white">
+    <header class="top-navbar border-b border-slate-100">
+        <div class="header-left min-w-0">
+            <div class="brand-logo select-none">
+                <img class="brand-logo-icon" src="/icons/papa.png" alt="Bentinho">
+                Bentinho
             </div>
-            <nav class="nav-menu">
-                <button type="button" id="nav-explore" class="active" aria-current="page" data-i18n="nav.explore">Explorar</button>
+            <nav class="nav-menu" aria-label="Main navigation">
                 <button type="button" id="nav-about" data-i18n="nav.about">Sobre</button>
+                <button type="button" id="nav-explore" class="active" aria-current="page" data-i18n="nav.explore">Explorar</button>
             </nav>
         </div>
         <div class="header-right">
             <div class="language-picker" id="languagePicker">
                 <button type="button" class="language-current-btn" id="languageCurrentButton" aria-expanded="false" aria-haspopup="listbox">
-                    <span id="languageCurrentFlag">🇧🇷</span>
+                    <span id="languageCurrentFlag" aria-hidden="true"></span>
                 </button>
                 <div class="language-menu" id="languageMenu" aria-label="Selecionar idioma">
-                    <button type="button" class="language-option" data-lang-option="pt-BR">🇧🇷 Português</button>
-                    <button type="button" class="language-option" data-lang-option="en">🇺🇸 English</button>
+                    <button type="button" class="language-option" data-lang-option="pt-BR">Português</button>
+                    <button type="button" class="language-option" data-lang-option="en">English</button>
                 </div>
             </div>
         </div>
@@ -40,10 +53,17 @@
 
     <main class="main-content">
         <div id="page-explore">
+            <div class="mobile-feed-intro">
+                <h2 data-i18n="search.title">Em qual país você deseja explorar os milagres eucarísticos?</h2>
+                <span class="global-counter mobile-global-counter" id="mobileGlobalCounter"></span>
+            </div>
+            <section class="map-container">
+                <div id="map"></div>
+            </section>
             <aside class="sidebar">
                 <div id="view-countries" class="view-container">
                     <div class="search-area">
-                        <h2 data-i18n="search.title">Onde você deseja ir?</h2>
+                        <h2 data-i18n="search.title">Em qual país você deseja explorar os milagres eucarísticos?</h2>
                         <span class="global-counter" id="globalCounter"></span>
                         <div class="search-box">
                             <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -51,7 +71,15 @@
                             <button type="button" class="search-clear-btn" id="clearCountrySearchButton" aria-label="Limpar busca" data-i18n-aria-label="search.clearAria">×</button>
                         </div>
                     </div>
+                    <h3 class="mobile-section-title" data-i18n="sections.countries">Países</h3>
+                    <div class="mobile-country-carousel" id="mobileCountryCarousel"></div>
                     <div class="country-grid" id="countryGrid"></div>
+                    <div class="history-section">
+                        <div class="history-header">
+                            <h3 class="mobile-section-title" data-i18n="sections.history">Histórico</h3>
+                        </div>
+                        <div class="history-list" id="historyList"></div>
+                    </div>
                 </div>
 
                 <div id="view-country-details" class="view-container">
@@ -66,9 +94,6 @@
                 </div>
             </aside>
 
-            <section class="map-container">
-                <div id="map"></div>
-            </section>
         </div>
 
         <div id="page-about">

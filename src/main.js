@@ -1,19 +1,115 @@
 import './styles.css';
+import '@fontsource/montserrat/300.css';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/800.css';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
+let deferredInstallPrompt = null;
+
+function trackPwaEvent(eventName, payload = {}) {
+    console.info('[PWA]', eventName, payload);
+}
+
+async function requestPersistentStorage() {
+    if (!('storage' in navigator) || typeof navigator.storage.persist !== 'function') {
+        return;
+    }
+
+    try {
+        const granted = await navigator.storage.persist();
+        trackPwaEvent('storage-persist', { granted });
+    } catch (error) {
+        trackPwaEvent('storage-persist-error', { message: String(error) });
+    }
+}
+
+globalThis.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    trackPwaEvent('beforeinstallprompt', { deferredAvailable: Boolean(deferredInstallPrompt) });
+});
+
+globalThis.addEventListener('appinstalled', () => {
+    trackPwaEvent('appinstalled', { hadDeferredPrompt: Boolean(deferredInstallPrompt) });
+    deferredInstallPrompt = null;
+});
+
+if ('serviceWorker' in navigator) {
+    globalThis.addEventListener('load', () => {
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            trackPwaEvent('sw-skip-localhost');
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                registrations.forEach((registration) => {
+                    registration.unregister();
+                });
+            });
+            caches.keys().then((keys) => {
+                keys.forEach((key) => {
+                    if (key.startsWith('bentinho-app-')) {
+                        caches.delete(key);
+                    }
+                });
+            });
+            return;
+        }
+
+        navigator.serviceWorker.register('/sw.js').then((registration) => {
+            trackPwaEvent('sw-registered', { scope: registration.scope });
+        }).catch((error) => {
+            console.warn('Service worker registration failed:', error);
+        });
+
+        requestPersistentStorage();
+    });
+}
+
 const APP_LANGUAGES = new Set(['pt-BR', 'en']);
+const DEFAULT_MAP_CENTER = [20, 0];
+const DEFAULT_MAP_ZOOM = 3;
+const USER_MAP_ZOOM = 8;
+const COUNTRY_CODE_BY_ID = {
+    1: 'it',
+    2: 'es',
+    3: 'fr',
+    4: 'de',
+    5: 'nl',
+    6: 'be',
+    7: 'pl',
+    8: 'at',
+    9: 'eg',
+    10: 'pt',
+    11: 'hr',
+    12: 'ch',
+    13: 'ar',
+    14: 'co',
+    15: 'mx',
+    16: 'pe',
+    17: 've',
+    18: 'in',
+    19: 'mq',
+    20: 're',
+    21: 'va'
+};
 
 const TRANSLATIONS = {
     'pt-BR': {
         appTitle: 'bentinho - Mapa Interativo',
-        nav: { explore: 'Explorar', about: 'Sobre' },
+        nav: { explore: 'Milagres Eucarísticos', about: 'Sobre' },
         search: {
-            title: 'Onde você deseja ir?',
+            title: 'Jesus está em todos os lugares',
             placeholder: 'Pesquisar país...',
             clearAria: 'Limpar busca',
-            counter: 'Explore {count} milagres documentados'
+            counter: 'Explore {count} milagres eucarísticos documentados ao redor do mundo. Escolha um país para começar.'
+        },
+        sections: {
+            countries: 'Países',
+            history: 'Histórico',
+            historyEmpty: 'Nenhum país visitado ainda'
         },
         detail: { back: 'Voltar', countryRegion: 'País/Região' },
         about: {
@@ -28,12 +124,17 @@ const TRANSLATIONS = {
     },
     en: {
         appTitle: 'bentinho - Interactive Map',
-        nav: { explore: 'Explore', about: 'About' },
+        nav: { explore: 'Eucharistic Miracles', about: 'About' },
         search: {
-            title: 'Where do you want to go?',
+            title: 'Jesus is present everywhere',
             placeholder: 'Search country...',
             clearAria: 'Clear search',
-            counter: 'Explore {count} documented miracles'
+            counter: 'Explore {count} documented Eucharistic miracles around the world. Choose a country to begin.'
+        },
+        sections: {
+            countries: 'Countries',
+            history: 'History',
+            historyEmpty: 'No visited countries yet'
         },
         detail: { back: 'Back', countryRegion: 'Country/Region' },
         about: {
@@ -53,6 +154,7 @@ let activeCountryId = null;
 let activeMiracleUrl = '';
 let activeMiracleUnsubscribers = [];
 let currentLanguage = 'pt-BR';
+let visitedCountryIds = [];
 
 const miracleStatus = new Map();
 const miracleStatusListeners = new Map();
@@ -74,6 +176,30 @@ function getBaseUrlByLanguage(lang) {
         : 'https://www.miracolieucaristici.org/pr/Liste/';
 }
 
+function isMobileIframeContext() {
+    return globalThis.matchMedia('(max-width: 1023px)').matches || navigator.maxTouchPoints > 0;
+}
+
+function buildMiracleDocumentUrl(relativePath) {
+    const url = new URL(relativePath, getBaseUrlByLanguage(currentLanguage));
+    if (isMobileIframeContext()) {
+        url.searchParams.set('mobile', '1');
+    }
+    return url.toString();
+}
+
+function getLanguageCountryCode(lang) {
+    return lang === 'en' ? 'us' : 'br';
+}
+
+function getLanguageDisplayName(lang) {
+    return lang === 'en' ? 'English' : 'Português';
+}
+
+function getLanguageBadgeCode(lang) {
+    return lang === 'en' ? 'EN' : 'PT';
+}
+
 async function loadCountriesData(lang) {
     const response = await fetch(getDataFilePathByLanguage(lang));
     if (!response.ok) {
@@ -83,6 +209,7 @@ async function loadCountriesData(lang) {
     const rawCountries = await response.json();
     return rawCountries.map((country) => ({
         ...country,
+        countryCode: COUNTRY_CODE_BY_ID[country.id] || '',
         totalMiracles: country.cities.length
     }));
 }
@@ -93,7 +220,10 @@ const selectors = {
     navExplore: document.getElementById('nav-explore'),
     navAbout: document.getElementById('nav-about'),
     globalCounter: document.getElementById('globalCounter'),
+    mobileGlobalCounter: document.getElementById('mobileGlobalCounter'),
     countryGrid: document.getElementById('countryGrid'),
+    mobileCountryCarousel: document.getElementById('mobileCountryCarousel'),
+    historyList: document.getElementById('historyList'),
     detailCountryTitle: document.getElementById('detailCountryTitle'),
     miracleList: document.getElementById('miracleList'),
     viewCountries: document.getElementById('view-countries'),
@@ -115,11 +245,17 @@ const selectors = {
     miracleIframe: document.getElementById('miracleIframe')
 };
 
-const map = L.map('map', { zoomControl: false }).setView([20, 0], 3);
+const map = L.map('map', { zoomControl: false }).setView(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM);
 const markersCluster = L.markerClusterGroup({
     showCoverageOnHover: false,
     spiderfyOnMaxZoom: true,
     disableClusteringAtZoom: 7
+});
+const miracleMarkerIcon = L.divIcon({
+    className: 'miracle-map-marker-wrapper',
+    html: '<span class="miracle-map-marker" aria-hidden="true"></span>',
+    iconSize: [38, 38],
+    iconAnchor: [19, 19]
 });
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' }).addTo(map);
@@ -131,8 +267,10 @@ function t(path, replacements = {}) {
     }, value);
 }
 
-function getLanguageFlag(lang) {
-    return lang === 'en' ? '🇺🇸' : '🇧🇷';
+function buildLanguageFlagImage(lang, className = 'language-flag-current') {
+    const code = getLanguageCountryCode(lang);
+    const label = getLanguageDisplayName(lang);
+    return `<img class="${className}" src="/flags/${code}.svg" alt="${label}" decoding="async" loading="lazy">`;
 }
 
 function applyTranslations() {
@@ -152,11 +290,20 @@ function applyTranslations() {
     });
 
     const totalMiracles = countries.reduce((sum, country) => sum + country.totalMiracles, 0);
-    selectors.globalCounter.innerText = t('search.counter', { count: String(totalMiracles) });
-    selectors.languageCurrentFlag.textContent = getLanguageFlag(currentLanguage);
+    const counterText = t('search.counter', { count: String(totalMiracles) });
+    selectors.globalCounter.innerText = counterText;
+    if (selectors.mobileGlobalCounter) {
+        selectors.mobileGlobalCounter.innerText = counterText;
+    }
+    selectors.languageCurrentFlag.innerHTML = buildLanguageFlagImage(currentLanguage);
+    selectors.languageOptions.forEach((option) => {
+        const lang = option.dataset.langOption;
+        option.innerHTML = `${buildLanguageFlagImage(lang, 'language-flag-inline')} <span>${getLanguageDisplayName(lang)}</span>`;
+    });
     document.querySelectorAll('.miracle-item-status.loading').forEach((statusEl) => {
         statusEl.textContent = t('status.loading');
     });
+    renderVisitedHistory();
 }
 
 function resolveInitialLanguage() {
@@ -165,6 +312,42 @@ function resolveInitialLanguage() {
         return 'en';
     }
     return 'pt-BR';
+}
+
+function isMobileLayoutContext() {
+    return globalThis.matchMedia('(max-width: 1023px)').matches;
+}
+
+function initializeMapViewport() {
+    if (!isMobileLayoutContext() || !('geolocation' in navigator)) {
+        map.setView(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM);
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition(
+            ({ coords }) => {
+                map.setView([coords.latitude, coords.longitude], USER_MAP_ZOOM);
+                resolve();
+            },
+            (error) => {
+                if (error.code === error.PERMISSION_DENIED) {
+                    console.info('[Map] Location permission denied, using global default.');
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    console.info('[Map] Location unavailable, using global default.');
+                } else if (error.code === error.TIMEOUT) {
+                    console.info('[Map] Location timeout, using global default.');
+                }
+                map.setView(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM);
+                resolve();
+            },
+            {
+                enableHighAccuracy: false,
+                timeout: 7000,
+                maximumAge: 120000
+            }
+        );
+    });
 }
 
 async function setLanguage(lang) {
@@ -238,10 +421,52 @@ function clearCountrySearch() {
     selectors.searchCountryInput.focus();
 }
 
+function renderVisitedHistory() {
+    if (!selectors.historyList) {
+        return;
+    }
+
+    selectors.historyList.innerHTML = '';
+    if (!visitedCountryIds.length) {
+        const emptyState = document.createElement('p');
+        emptyState.className = 'history-empty';
+        emptyState.textContent = t('sections.historyEmpty');
+        selectors.historyList.appendChild(emptyState);
+        return;
+    }
+
+    visitedCountryIds.forEach((countryId) => {
+        const country = countries.find((item) => item.id === countryId);
+        if (!country) {
+            return;
+        }
+
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'history-item';
+        item.innerHTML = `
+            <div class="history-item-main">
+                ${buildCountryFlagImage(country)}
+                <span class="history-item-name">${country.countryName}</span>
+            </div>
+            <span class="history-item-count">${country.totalMiracles}</span>
+        `;
+        item.addEventListener('click', () => openCountryDetails(country));
+        selectors.historyList.appendChild(item);
+    });
+}
+
 function updateCountrySelectionState() {
     document.querySelectorAll('.country-card').forEach((card) => {
         card.classList.toggle('selected', Number(card.dataset.countryId) === activeCountryId);
     });
+}
+
+function buildCountryFlagImage(country) {
+    if (!country.countryCode) {
+        return `<span class="country-flag-fallback" aria-hidden="true">${country.flag || ''}</span>`;
+    }
+    return `<img class="country-flag-image" src="/flags/${country.countryCode}.svg" alt="${country.countryName}" loading="lazy" decoding="async">`;
 }
 
 function getMiracleStatus(url) {
@@ -384,12 +609,12 @@ function enqueueMiraclePrefetch(url, sessionId = activePrefetchSessionId) {
 
 function prefetchCountryMiracles(country, sessionId) {
     country.cities.forEach((city) => {
-        enqueueMiraclePrefetch(getBaseUrlByLanguage(currentLanguage) + city.url, sessionId);
+        enqueueMiraclePrefetch(buildMiracleDocumentUrl(city.url), sessionId);
     });
 }
 
 function openMiracleModal(city, countryName) {
-    const miracleUrl = getBaseUrlByLanguage(currentLanguage) + city.url;
+    const miracleUrl = buildMiracleDocumentUrl(city.url);
     const status = getMiracleStatus(miracleUrl);
 
     selectors.modalTitle.innerText = city.name;
@@ -423,18 +648,20 @@ function closeModalOnBackdropClick(event) {
 }
 
 function openCountryDetails(country) {
+    visitedCountryIds = [country.id, ...visitedCountryIds.filter((id) => id !== country.id)];
+    renderVisitedHistory();
     const sessionId = startCountryPrefetchSession();
     activeCountryId = country.id;
     updateCountrySelectionState();
     prefetchCountryMiracles(country, sessionId);
     map.flyTo(country.coords, country.zoom, { duration: 1.5 });
-    selectors.detailCountryTitle.innerHTML = `${country.flag} ${country.countryName}`;
+    selectors.detailCountryTitle.innerHTML = `${buildCountryFlagImage(country)} <span>${country.countryName}</span>`;
     selectors.miracleList.innerHTML = '';
     activeMiracleUnsubscribers.forEach((unsubscribe) => unsubscribe());
     activeMiracleUnsubscribers = [];
 
     country.cities.forEach((city) => {
-        const miracleUrl = getBaseUrlByLanguage(currentLanguage) + city.url;
+        const miracleUrl = buildMiracleDocumentUrl(city.url);
         const listItem = document.createElement('div');
         listItem.className = 'miracle-list-item';
         listItem.dataset.search = `${city.name.toLowerCase()} ${city.year.toLowerCase()}`;
@@ -487,29 +714,48 @@ function openCountryDetails(country) {
 function goBackToCountries() {
     selectors.viewCountryDetails.classList.remove('active');
     selectors.viewCountries.classList.remove('hidden');
-    map.flyTo([20, 0], 3, { duration: 1.5 });
+    map.flyTo(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, { duration: 1.5 });
 }
 
 function renderCountries() {
+    selectors.countryGrid.innerHTML = '';
+    if (selectors.mobileCountryCarousel) {
+        selectors.mobileCountryCarousel.innerHTML = '';
+    }
     countries.forEach((country) => {
-        const card = document.createElement('div');
-        card.className = 'country-card';
-        card.dataset.name = country.countryName.toLowerCase();
-        card.dataset.countryId = country.id;
-        card.setAttribute('role', 'button');
-        card.setAttribute('tabindex', '0');
-        card.innerHTML = `<div class="country-flag">${country.flag}</div><div class="country-info"><span class="country-name">${country.countryName}</span><span class="miracle-count">${country.totalMiracles}</span></div>`;
-        card.addEventListener('click', () => openCountryDetails(country));
-        card.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                openCountryDetails(country);
-            }
-        });
-        selectors.countryGrid.appendChild(card);
+        const createCountryCard = () => {
+            const card = document.createElement('div');
+            card.className = 'country-card';
+            card.dataset.name = country.countryName.toLowerCase();
+            card.dataset.countryId = country.id;
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.innerHTML = `<div class="country-flag">${buildCountryFlagImage(country)}</div><div class="country-info"><span class="country-name">${country.countryName}</span><span class="miracle-count">${country.totalMiracles}</span></div>`;
+            card.addEventListener('click', () => openCountryDetails(country));
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openCountryDetails(country);
+                }
+            });
+            return card;
+        };
+
+        selectors.countryGrid.appendChild(createCountryCard());
+        if (selectors.mobileCountryCarousel) {
+            selectors.mobileCountryCarousel.appendChild(createCountryCard());
+        }
 
         country.cities.forEach((city) => {
-            const marker = L.marker([city.lat, city.lng]);
+            const marker = L.marker([city.lat, city.lng], {
+                icon: miracleMarkerIcon,
+                title: country.countryName
+            });
+            marker.bindTooltip(country.countryName, {
+                direction: 'top',
+                offset: [0, -18],
+                opacity: 0.9
+            });
             marker.on('click', () => openMiracleModal(city, country.countryName));
             markersCluster.addLayer(marker);
         });
@@ -559,6 +805,9 @@ function bindEvents() {
             selectors.languageCurrentButton.setAttribute('aria-expanded', 'false');
         }
     });
+    globalThis.addEventListener('resize', () => {
+        map.invalidateSize();
+    });
 
     selectors.searchCountryInput.addEventListener('input', (event) => {
         const term = event.target.value.toLowerCase();
@@ -586,7 +835,9 @@ async function initializeApp() {
     preloadIframe.setAttribute('aria-hidden', 'true');
     document.body.appendChild(preloadIframe);
 
+    await initializeMapViewport();
     renderCountries();
+    renderVisitedHistory();
     bindEvents();
     applyTranslations();
 }
@@ -596,4 +847,7 @@ try {
 } catch (error) {
     console.error(error);
     selectors.globalCounter.innerText = t('error.dataLoad');
+    if (selectors.mobileGlobalCounter) {
+        selectors.mobileGlobalCounter.innerText = t('error.dataLoad');
+    }
 }
